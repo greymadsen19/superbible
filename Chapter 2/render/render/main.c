@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#include "render.h"
+
 int main(void) {
 	glewExperimental = GL_TRUE;
 	GLFWwindow* window;
