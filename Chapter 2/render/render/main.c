@@ -43,7 +43,7 @@ int main(void) {
 
 	do {
 		// Render Graphics
-		render();
+		render(glfwGetTime());
 
 		// Swap buffers
 		glfwSwapBuffers(window);
