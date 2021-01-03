@@ -69,9 +69,9 @@ int main(void) {
 		running &= (glfwWindowShouldClose(window) != GL_TRUE);
 	} while (running);
 
-	glDeleteVertexArrays(1, VAO);
+	glDeleteVertexArrays(1, &VAO);
 	glDeleteProgram(program);
-	glDeleteVertexArrays(1, VAO);
+	glDeleteVertexArrays(1, &VAO);
 
 	glfwDestroyWindow(window);
 	glfwTerminate();

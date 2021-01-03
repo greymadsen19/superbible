@@ -51,7 +51,7 @@ GLuint loadshaders(shaderinfo* shaders) {
 		const GLchar* source = readshader(entry->filename);
 
 		if (source == NULL) {
-			for (entry = shader; entry->type != GL_NONE; ++entry) {
+			for (entry = shaders; entry->type != GL_NONE; ++entry) {
 				glDeleteShader(entry->shader);
 				entry->shader = 0;
 			}
