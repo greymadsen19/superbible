@@ -20,7 +20,7 @@ void init(void) {
 }
 
 void render(double currentTime) {
-	GLfloat color[4] = { 0.5f * (float)sin(currentTime) + 0.5f, 0.0f, 0.5f * (float) cos(currentTime) + 0.5f, 1.0f };
+	GLfloat color[4] = { 0.5f * (float)sin(currentTime) + 0.5f, 0.0f, 0.5f * (float)cos(currentTime) + 0.5f, 1.0f };
 
 	glClearBufferfv(GL_COLOR, 0, color);
 
