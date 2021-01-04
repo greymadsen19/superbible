@@ -6,5 +6,5 @@
 #include <GL/glew.h>
 
 void init(void);
-void render(void);
+void render(double);
 #endif

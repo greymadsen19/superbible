@@ -47,7 +47,7 @@ GLuint loadshaders(shaderinfo* shaders) {
 
 		entry->shader = shader;
 
-		GLchar* source = readshader(entry->filename);
+		const GLchar* source = readshader(entry->filename);
 
 		if (source == NULL) {
 			for (entry = shaders; entry->type != GL_NONE; ++entry) {
