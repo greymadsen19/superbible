@@ -20,6 +20,6 @@
         Chapter 14 - High Performance OpenGL
         Chapter 15 - Debugging and Stability
 ## Libraries/Tools
-    IDE: MS Visual Studio
+    Compiler: MinGW/GCC
     Extension Loading: GLEW
     Context Creation: GLFW
