@@ -8,8 +8,8 @@ static GLuint program;
 
 void init(void) {
 	shaderinfo shaders[3] = {
-		{ GL_VERTEX_SHADER, "offset.vs" },
-		{ GL_FRAGMENT_SHADER, "fcolor.fs" },
+		{ GL_VERTEX_SHADER, "../offset.vs" },
+		{ GL_FRAGMENT_SHADER, "../fcolor.fs" },
 		{ GL_NONE, NULL}
 	};
 

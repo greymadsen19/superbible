@@ -9,9 +9,7 @@ static const GLchar* readshader(const char* filename) {
 	GLchar* source;
 
 	if (infile == NULL) {
-#ifdef _DEBUG
-		fprintf(stderr, "Cannot open file %s\n", filename);
-#endif
+		fprintf(stderr, "Unable to open file %s\n", filename);
 		return NULL;
 	}
 
@@ -22,22 +20,23 @@ static const GLchar* readshader(const char* filename) {
 	source = (char*)calloc(len + 1, sizeof(char));
 
 	if (source == NULL) {
-#ifdef _DEBUG
-		fprintf(stderr, "Cannot allocate memory for file %s\n", filename);
-#endif
+		fprintf(stderr, "Memory allocation error at %p\n", &source);
 		return NULL;
 	}
 
 	fread(source, sizeof(char), len + 1, infile);
 	fclose(infile);
 
-	return (const GLchar*)source;
+	source[len] = '\0';
+
+	return (const char*)source;
 }
 
 GLuint loadshaders(shaderinfo* shaders) {
-	if (shaders == NULL) return 0;
+	if (shaders == NULL)
+		return 0;
 
-	program = glCreateProgram();
+	GLuint program = glCreateProgram();
 
 	shaderinfo* entry = shaders;
 
@@ -45,9 +44,7 @@ GLuint loadshaders(shaderinfo* shaders) {
 		GLuint shader = glCreateShader(entry->type);
 
 		entry->shader = shader;
-
 		const GLchar* source = readshader(entry->filename);
-
 		if (source == NULL) {
 			for (entry = shaders; entry->type != GL_NONE; ++entry) {
 				glDeleteShader(entry->shader);
@@ -58,21 +55,18 @@ GLuint loadshaders(shaderinfo* shaders) {
 		}
 
 		glShaderSource(shader, 1, &source, NULL);
-		free((void*)source);
+		free((GLchar*)source);
 
 		glCompileShader(shader);
-
-		GLuint compiled;
+		GLint compiled;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
-
 		if (!compiled) {
-#ifdef _DEBUG
 			GLsizei len;
 			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
 			GLchar* log = malloc(len + 1);
 			glGetShaderInfoLog(shader, len, &len, log);
-			fprintf(stderr, "Shader failed to compile %s\n", log);
-#endif
+			fprintf(stderr, "Shader compilation failed: %s\n", log);
+			free(log);
 			return 0;
 		}
 
@@ -83,28 +77,24 @@ GLuint loadshaders(shaderinfo* shaders) {
 
 	glLinkProgram(program);
 
-	GLuint linked;
+	GLint linked;
 	glGetProgramiv(program, GL_LINK_STATUS, &linked);
 
 	if (!linked) {
-#ifdef _DEBUG
 		GLsizei len;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
+
 		GLchar* log = malloc(len + 1);
 		glGetProgramInfoLog(program, len, &len, log);
-		fprintf(stderr, "Shader failed to link %s\n", log);
-#endif 
+		fprintf(stderr, "Shader linking failed: %s\n", log);
+		free(log);
+
 		for (entry = shaders; entry->type != GL_NONE; ++entry) {
 			glDeleteShader(entry->shader);
 			entry->shader = 0;
 		}
 
 		return 0;
-	}
-
-	for (entry = shaders; entry->type != GL_NONE; ++entry) {
-		glDeleteShader(entry->shader);
-		entry->shader = 0;
 	}
 
 	return program;

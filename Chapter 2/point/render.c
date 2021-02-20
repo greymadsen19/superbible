@@ -8,18 +8,21 @@ void init(void) {
 		{ GL_FRAGMENT_SHADER, "points.fs" },
 		{ GL_NONE, NULL }
 	};
+	
+	GLuint program;
+	GLuint VAO;
 
 	program = loadshaders(shaders);
 	glCreateVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
+	
+	glUseProgram(program);
 }
 
 void render(double currentTime) {
 	GLfloat color[] = { cos(currentTime) * 0.5f + 0.5f, 0.0f,  sin(currentTime) * 0.5f + 0.5f, 1.0f };
 
 	glClearBufferfv(GL_COLOR, 0, color);
-
-	glUseProgram(program);
 
 	glPointSize(40.0f);
 

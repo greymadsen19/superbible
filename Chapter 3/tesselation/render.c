@@ -8,10 +8,10 @@ static GLuint vao;
 
 void init(void) {
 	shaderinfo shaders[5] = {
-		{ GL_VERTEX_SHADER, "rectangle.vs" },
-		{ GL_TESS_CONTROL_SHADER, "tess.tcs" },
-		{ GL_TESS_EVALUATION_SHADER, "tess.tes" },
-		{ GL_FRAGMENT_SHADER, "color.fs" },
+		{ GL_VERTEX_SHADER, "../rectangle.vs" },
+		{ GL_TESS_CONTROL_SHADER, "../tess.tcs" },
+		{ GL_TESS_EVALUATION_SHADER, "../tess.tes" },
+		{ GL_FRAGMENT_SHADER, "../color.fs" },
 		{ GL_NONE, NULL }
 	};
 

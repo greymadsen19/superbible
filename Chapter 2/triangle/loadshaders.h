@@ -4,7 +4,7 @@
 #pragma once
 #endif
 
-#include "render.h"
+#include <GL/glew.h>
 
 typedef struct {
 	GLenum type;

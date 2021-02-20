@@ -7,9 +7,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+void render(double);
 void init(void);
-void render(void);
 
-GLuint program;
-GLuint VAO;
 #endif
